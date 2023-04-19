@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Big Text Field</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+</head>
+
+<body>
+  <textarea cols="186.5" rows="200" placeholder="Big text box"
+    style="background-color: black; color: white;"></textarea>
+</body>
+
+<body>
+  ㅤ
+  <br>
+  Directions : Type in anything you want to repeat below, then click the button to generate the code.<br>
+  Drag the highlighted text to the bookmarks bar. (If you don't see the bar use CTRL + SHIFT + B)<br>
+  Then run the code by clicking on it, lastly use the text box above.
+  <br>
+  <button onclick="getAndStore()" id="bt" style="background-color: black; color: white;">Click me to make
+    bookmarklet</button>
+  <textarea id="tb" placeholder="Write stuff here and come out as cool stuff the bookmark" cols="186.5" rows="30"
+    maxlength="135000" style="background-color: black; color: white;"></textarea>
+
+  <script>
+    function getAndStore() {
+      var value = document.getElementById("tb").value;
+      localStorage.setItem("myVariable", value);
+      var myVariable = localStorage.getItem("myVariable");
+      var epictext = myVariable.replace(/'/g, "\u005cu0027");
+      var finishedtext = "javascript:(function(){(function(){var TEXT = " + "'" + epictext + " '" + ";Array.prototype.slice.call(document.querySelectorAll('input[type=text],textarea')).map(function(el){el.onkeypress=function(evt){var charCode = typeof evt.which == 'number' ? evt.which : evt.keyCode;if (charCode && charCode > 31) {var start = this.selectionStart, end = this.selectionEnd;this.value = this.value.slice(0, start) + TEXT[start % TEXT.length] + this.value.slice(end);this.selectionStart = this.selectionEnd = start + 1;}return false;}});}());}())"
+      var btext = document.getElementById("tb");
+      btext.value = finishedtext;
+      btext.select();
+
+    }
+  </script>
+</body>
+
+</html>
